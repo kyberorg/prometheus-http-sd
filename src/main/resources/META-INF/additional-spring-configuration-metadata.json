@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "app.auth.enabled",
+      "type": "java.lang.String",
+      "description": "Enables/Disables Authorization (user, login etc)."
+    },
+    {
+      "name": "app.auth.user",
+      "type": "java.lang.String",
+      "description": "Application user. Has no effect, when Authorization is disabled."
+    },
+    {
+      "name": "app.auth.password",
+      "type": "java.lang.String",
+      "description": "Application user. Has no effect, when Authorization is disabled."
+    }
+  ] }

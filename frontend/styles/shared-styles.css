@@ -1,0 +1,110 @@
+.login-information {
+    min-width: 300px;
+    flex: 0;
+    background: var(--lumo-primary-color-50pct);
+}
+
+/* Stack login-screen vertically on narrow screen */
+@media (max-width: 800px) {
+
+    .login-screen {
+        flex-direction: column;
+    }
+
+    .login-information {
+        display: block;
+    }
+}
+
+body {
+    /* Used by the menu and form overlays */
+    --overlay-box-shadow: 0 0 3px 2px var(--lumo-contrast-10pct);
+}
+
+.menu-header {
+    padding: 11px 16px 11px 32px;
+    font-size: var(--lumo-font-size-l);
+}
+
+.menu-toggle {
+    color: black;
+    margin-left: -1.5rem;
+}
+
+vaadin-tab {
+    padding: 0 0.5rem;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+}
+
+vaadin-tab[selected] {
+    background: var(--lumo-primary-color-10pct);
+}
+
+vaadin-tab a vaadin-icon {
+    margin-right: 1rem;
+}
+
+vaadin-tab vaadin-button vaadin-icon {
+    margin-right: 1rem;
+}
+
+.logo {
+    max-height: 44px;
+}
+
+.record-form {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    overflow: auto;
+    background: var(--lumo-base-color);
+    box-shadow: var(--overlay-box-shadow);
+}
+
+.record-form-content {
+    margin-top: var(--_vaadin-app-layout-navbar-offset-size);
+}
+
+.record-form-title {
+    align-self: center;
+}
+
+
+/*
+ * Special rules for narrow screens (responsive design rules)
+ */
+@media (max-width: 800px), (max-height: 600px) {
+
+    /*
+     * Make menu toggle visible, and smaller
+     */
+    .menu-toggle {
+        display: block;
+        height: var(--lumo-button-size);
+        width: var(--lumo-button-size);
+    }
+
+    .menu-header {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .record-form {
+        width: 100%;
+
+        /* Prevent text-fields from overflowing on narrow screens */
+        --vaadin-text-field-default-width: 6em;
+    }
+}
+
+.theme-toggle-button {
+    align-self: auto;
+    margin-left: auto;
+    margin-right: 1rem;
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <changeSet id="1" author="kyberorg">
+        <createTable tableName="files">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_files"/>
+            </column>
+            <column name="filename" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="label_keys">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_keys"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="label_values">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_values"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="labels">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_labels"/>
+            </column>
+            <column name="label_key_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label_value_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="records">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_records"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="file_id" type="BIGINT"/>
+            <column name="active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="records_labels">
+            <column name="labels_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_records_labels"/>
+            </column>
+            <column name="record_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_records_labels"/>
+            </column>
+        </createTable>
+        <createTable tableName="records_targets">
+            <column name="record_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_records_targets"/>
+            </column>
+            <column name="targets_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_records_targets"/>
+            </column>
+        </createTable>
+        <createTable tableName="targets">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_targets"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="filename" constraintName="uc_files_filename" tableName="files"/>
+        <addUniqueConstraint columnNames="value" constraintName="uc_label_keys_value" tableName="label_keys"/>
+        <addUniqueConstraint columnNames="value" constraintName="uc_label_values_value" tableName="label_values"/>
+        <addUniqueConstraint columnNames="name" constraintName="uc_records_name" tableName="records"/>
+        <addForeignKeyConstraint baseColumnNames="label_key_id" baseTableName="labels"
+                                 constraintName="FK_LABELS_ON_LABEL_KEY" referencedColumnNames="id"
+                                 referencedTableName="label_keys"/>
+        <addForeignKeyConstraint baseColumnNames="label_value_id" baseTableName="labels"
+                                 constraintName="FK_LABELS_ON_LABEL_VALUE" referencedColumnNames="id"
+                                 referencedTableName="label_values"/>
+        <addForeignKeyConstraint baseColumnNames="file_id" baseTableName="records" constraintName="FK_RECORDS_ON_FILE"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+        <addForeignKeyConstraint baseColumnNames="labels_id" baseTableName="records_labels"
+                                 constraintName="fk_reclab_on_label" referencedColumnNames="id"
+                                 referencedTableName="labels"/>
+        <addForeignKeyConstraint baseColumnNames="record_id" baseTableName="records_labels"
+                                 constraintName="fk_reclab_on_record" referencedColumnNames="id"
+                                 referencedTableName="records"/>
+        <addForeignKeyConstraint baseColumnNames="record_id" baseTableName="records_targets"
+                                 constraintName="fk_rectar_on_record" referencedColumnNames="id"
+                                 referencedTableName="records"/>
+        <addForeignKeyConstraint baseColumnNames="targets_id" baseTableName="records_targets"
+                                 constraintName="fk_rectar_on_target" referencedColumnNames="id"
+                                 referencedTableName="targets"/>
+        <insert tableName="files">
+            <column name="filename" value="targets" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

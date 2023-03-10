@@ -1,0 +1,18 @@
+ 
+/* TEAM */
+    Idea and developer: Aleksandr Muravja (aka Kyberorg)
+    Contact: me [at] kyberorg [dot] dev
+    Twitter: @kyberorg
+    Facebook: kyberorg
+    Location: Tallinn, Estonia
+
+/* THANKS */
+    JetBrains (for IDEA)
+    Spring Developers (for Spring Boot)
+    Vaadin (for Vaadin)
+
+/* SITE */
+    Language: English
+    Standards: HTML5, JS, CSS3
+    Components: Spring Boot, Vaadin, Java
+    Software: IDEA
