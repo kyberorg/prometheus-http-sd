@@ -36,7 +36,7 @@ mkdir /opt/http-sd/db
 ```
 ```
 # Database (file-based HSQLDB)
-DB_FOLDER=/opt/httpd-sd/db
+DB_FOLDER=/opt/http-sd/db
 DB_NAME=db-name
 DB_USER=db-user-here
 DB_PASSWORD=db-password-here
@@ -70,9 +70,9 @@ After=network-online.target
 Type=simple
 Restart=always
 RestartSec=5s
-WorkingDirectory=/opt/httpd-sd
+WorkingDirectory=/opt/http-sd
 ExecStart=java -jar http-sd.jar --spring.profiles.active=db #replace it with hsqldb,postgres,mysql or mariadb
-EnvironmentFile=/opt/httpd-sd/app-config.env
+EnvironmentFile=/opt/http-sd/app-config.env
 
 [Install]
 WantedBy=multi-user.target
