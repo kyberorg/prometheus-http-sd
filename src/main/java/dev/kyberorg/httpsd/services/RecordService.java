@@ -53,6 +53,17 @@ public class RecordService {
     }
 
     /**
+     * Gets {@link Record} by its name.
+     *
+     * @param recordName non-empty string with record name.
+     * @return {@link Optional} with found {@link Record} or {@link Optional#empty()}.
+     */
+    public Optional<Record> getRecordByName(final String recordName) {
+        if (StringUtils.isBlank(recordName)) return Optional.empty();
+        return recordDao.findRecordByName(recordName);
+    }
+
+    /**
      * Gets {@link Record} name.
      *
      * @param record non-empty {@link Record} record.

@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * DAO for {@link Record} table.
@@ -19,6 +20,15 @@ public interface RecordDao extends CrudRepository<Record, Long> {
      * @return true - if name exists, false - if not.
      */
     boolean existsByName(String name);
+
+    /**
+     * Provides {@link Record} by its name.
+     *
+     * @param recordName non-empty string with name of record.
+     * @return {@link Optional} with found {@link Record} object or {@link Optional#empty()}
+     */
+    Optional<Record> findRecordByName(String recordName);
+
     /**
      * Provides {@link List} or {@link Record}s bounded to {@link File} with given filename.
      *

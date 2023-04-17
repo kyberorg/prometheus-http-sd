@@ -34,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Optional;
 
 /**
  * A form for editing a single record.
@@ -154,7 +155,7 @@ public class RecordForm extends Div {
         save.addClickListener(event -> {
             if (currentRecord != null
                     && binder.writeBeanIfValid(currentRecord)
-                    && recordNameIsValue(currentRecord)
+                    && recordNameIsValid(currentRecord)
                     && targetsAreValid(currentRecord)
                     && labelsAreValid(currentRecord)
             ) {
@@ -198,17 +199,30 @@ public class RecordForm extends Div {
         }
     }
 
-    private boolean recordNameIsValue(final Record currentRecord) {
+    private boolean recordNameIsValid(final Record currentRecord) {
         if (currentRecord == null) return false;
         if (StringUtils.isBlank(currentRecord.getName())) {
             recordName.setInvalid(true);
             recordName.setErrorMessage("Name cannot be null");
             return false;
         }
-        if (RecordService.get().isRecordWithThisNameExists(currentRecord.getName().trim())) {
-            recordName.setInvalid(true);
-            recordName.setErrorMessage("Name already exists");
-            return false;
+
+        String recName = currentRecord.getName().trim();
+        if (RecordService.get().isRecordWithThisNameExists(recName)) {
+            //if it is same record aka update -> OK
+            Optional<Record> recordWithSameName = RecordService.get().getRecordByName(recName);
+            if (recordWithSameName.isPresent()) {
+                boolean sameRecord = currentRecord.equals(recordWithSameName.get());
+                if (sameRecord) {
+                    recordName.setInvalid(false);
+                    recordName.setErrorMessage("");
+                    return true;
+                }
+            } else {
+                recordName.setInvalid(true);
+                recordName.setErrorMessage("Name already exists");
+                return false;
+            }
         }
         recordName.setInvalid(false);
         recordName.setErrorMessage("");
